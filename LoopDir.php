@@ -5,19 +5,23 @@
  * @Date:   2019-06-06
  * @Email:  jpyan2906@gmail.com
  */
-
-function loopDir($dir)
+class File
 {
-	$handle = opendir($dir);
+	public function loopDir($dir)
+	{
+		$handle = opendir($dir);
 
-	while (($file = readdir($handle))!==false) {
-		if ($file !== '.' && $file!== '..') {
-			echo "$file\n";
-			if (filetype($dir.'/'.$file)=='dir') {
-				loopDir($dir.'/'.$file);
+		while (($file = readdir($handle))!==false) {
+			if ($file !== '.' && $file!== '..') {
+				echo "$file\n";
+				if (filetype($dir.'/'.$file)=='dir') {
+					$this->loopDir($dir.'/'.$file);
+				}
 			}
 		}
 	}
 }
+
+$fileObj = new File();
 $dir = 'test';
-loopDir($dir);
+$fileObj -> loopDir($dir);
